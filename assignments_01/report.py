@@ -29,8 +29,9 @@ if __name__ == "__main__":
 #1 -> Rejecting the whole file is the not a right behavior, skippping is better because one broken hour doesn't throw away a whole week.
 #to allow blanks, would tell the schema that a temperature can be a number or None, and the code after it has to ignore the None value.
 
-#2 -> min_hours24 prevents that by leaving the date out.Then incomplete_days() tewlls which day was left out, so i know its pending not lost.
+#2 -> min_hours24 prevents that by leaving the date out. Then incomplete_days() tewlls which day was left out, so i know its pending not lost.
 
 #3 ->  because the code is a package, someone esle's script, like a week 10 pipeline, can write from weatherkit import DailyAggregator and use it
 #without copying my files or knowing which file each class is in.
-
+ 
+#second commit
