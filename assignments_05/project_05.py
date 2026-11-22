@@ -242,8 +242,8 @@ def run_chatbot():
                 if line:
                     raw_bullets.append(line)
             # YOUR CODE: call rewrite_bullets() and print the results
-                results = rewrite_bullets(raw_bullets)
-                print(results)
+            results = rewrite_bullets(raw_bullets)
+            print(results)
 
         # 6. Check if the user wants a cover letter
         elif "cover letter" in user_input.lower():
