@@ -299,6 +299,16 @@ print(response)
 
 
 # ---  Local Models with Ollama --- 
+"""
+Ollama Q1: output of 
+ollama run qwen3:0.6b "Explain what a large language model is in two sentences."
+
+Terminal output: 
+A large language model is an AI system designed to understand and generate human-like text, trained on vast amounts of text to 
+learn patterns and improve its ability to comprehend and create language. It excels in understanding context and generating 
+diverse text, making it invaluable for tasks like writing, translation, or answering questions.
+"""
+
 
 #Ollama Question 1
 print("\nQ7 - OpenAI response")
