@@ -1,0 +1,20 @@
+{
+  "python_version": "3.12.12 (main, Oct  9 2025, 11:07:00) [Clang 17.0.0 (clang-1700.0.13.3)]",
+  "sklearn_version": "1.9.1",
+  "features": [
+    "temperature_2m_max",
+    "temperature_2m_min",
+    "precipitation_sum",
+    "wind_speed_10m_max"
+  ],
+  "label": "good_for_running",
+  "city": "San Francisco, CA",
+  "test_accuracy": 0.972972972972973,
+  "test_f1": 0.9772727272727273,
+  "label_rule": {
+    "temperature_2m_max": "7 to 26 C",
+    "temperature_2m_min": ">= 0 C",
+    "precipitation_sum": "< 3 mm",
+    "wind_speed_10m_max": "< 30 km/h"
+  }
+}
