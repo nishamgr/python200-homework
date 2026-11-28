@@ -41,14 +41,14 @@ from llama_index.core import SimpleDirectoryReader, VectorStoreIndex
 """
 steps = [
     
-    "Extract text from source documents",
-    "Split text into chunks",
-    "Convert text chunks into embeddings",
-    "Receive the user's query",      
-    "Embed the user's query",
-    "Retrieve the most relevant chunks",
-    "Inject retrieved chunks into the prompt",
-    "Generate a response from the LLM",  
+    "Extract text from source documents",       #Read the raw text out of PDFs, TXT files
+    "Split text into chunks",                   #Break long text into small pieces so each one stays focused on one topic.
+    "Convert text chunks into embeddings",      #Turn each chunk into a list of numbers that represents its meaning.
+    "Receive the user's query",                 #The user types a question into the system.     
+    "Embed the user's query",                   #Turn the question into numbers using the same embedding model.
+    "Retrieve the most relevant chunks",        #Compare the question's numbers to every chunk and keep the closest matches.
+    "Inject retrieved chunks into the prompt",  #Paste those chunks into the prompt as context for the LLM.
+    "Generate a response from the LLM",         #The LLM writes the answer using the question and the chunks.  
 ]
 """
 
@@ -234,6 +234,22 @@ for q in questions:
 #affect the answer. They are possibly the next closet chunk, since top_k i sakways 3 even when only one chunk is a strong match.
 
 ### LlamaIndex Question 2
+q = questions[0]   #re-run the benefits question from Q1
+
+for k in [1, 5]:
+    engine = index.as_query_engine(similarity_top_k=k)
+    response = engine.query(q)
+
+    print(f"\n=== similarity_top_k={k} ===")
+    print(f"Q: {q}")
+    print(f"A: {response}")
+
+    for node_with_score in response.source_nodes:
+        text = node_with_score.node.get_content()[:150].replace("\n", " ")
+        print(f"Similarity Score: {node_with_score.score:.4f}")
+        print(f"Text snippet: {text}...")
+        print("_" * 30)
+
 
 # Re-run the queries from Q1: once with similarity_top_k=1 and once with similarity_top_k=5
 # similarity_top_k=1 : The model only saw the benefits section(score 0.7752), so the answer was to the point with details.
@@ -242,6 +258,17 @@ for q in questions:
 #extra low scoring chunks add no useful info, it rather costs more tokens and risks distraction the model with unrelated text.
 
 ### LlamaIndex Question 3
+
+q = "What is BrightLeaf's policy on pets in the office?"
+response = query_engine.query(q)
+
+print(f"\nQ: {q}")
+print(f"A: {response}")
+for node_with_score in response.source_nodes:
+    text = node_with_score.node.get_content()[:150].replace("\n", " ")
+    print(f"Score: {node_with_score.score:.4f} | {node_with_score.node.metadata['file_name']}")
+    print(f"Snippet: {text}...")
+    print("_" * 30)
 
 #Query :     "What is BrightLeaf's policy on pets in the office?",
 #Retrieval was weak, the top score was 0.57, and other chunks around 0.43.
